@@ -91,13 +91,13 @@ export default async function ProizvodiPage() {
             <div className="relative -mx-4 px-4 md:mx-0 md:px-0">
               <div
                 className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory touch-pan-x overscroll-x-contain scroll-smooth"
-                style={{ WebkitOverflowScrolling: 'touch' }}
+                style={{ WebkitOverflowScrolling: "touch" }}
               >
                 {categories.map((category: any) => (
                   <Link
                     key={category._id}
                     href={`/kategorija/${category.slug.current}`}
-                    className="group relative flex-shrink-0 w-40 md:w-48 overflow-hidden rounded-lg shadow-sm transition-all hover:shadow-xl snap-start"
+                    className="group relative flex-shrink-0 w-32 md:w-48 overflow-hidden rounded-lg shadow-sm transition-all hover:shadow-xl snap-start"
                   >
                     <div className="relative aspect-[9/16] overflow-hidden">
                       {category.image ? (

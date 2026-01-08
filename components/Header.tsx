@@ -103,7 +103,7 @@ export default function Header() {
         </Link>
         <DesktopNav />
         <div className="flex items-center gap-4">
-          <Link href="/korpa" className="hidden lg:block">
+          <Link href="/korpa">
             <motion.button
               whileHover={{ scale: 1.1 }}
               className="text-primary relative"

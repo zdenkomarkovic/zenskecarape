@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { CheckCircle } from 'lucide-react'
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { CheckCircle } from "lucide-react";
 
 export default function UspesnaPorudzbinaPage() {
   return (
@@ -16,7 +16,8 @@ export default function UspesnaPorudzbinaPage() {
           </h1>
 
           <p className="mb-4 text-lg text-gray-600">
-            Hvala vam na porudžbini. Vaša porudžbina je primljena i uskoro ćemo vas kontaktirati putem telefona ili emaila za potvrdu.
+            Hvala vam na porudžbini. Vaša porudžbina je primljena i uskoro ćemo
+            vas kontaktirati putem telefona ili emaila za potvrdu.
           </p>
 
           <p className="mb-8 text-gray-600">
@@ -25,15 +26,12 @@ export default function UspesnaPorudzbinaPage() {
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/proizvodi">
-              <Button className="bg-red-500 px-8 py-6 text-lg hover:bg-red-600">
+              <Button className="bg-primary px-8 py-6 text-lg hover:bg-primary/80">
                 Nastavi sa kupovinom
               </Button>
             </Link>
             <Link href="/">
-              <Button
-                variant="outline"
-                className="px-8 py-6 text-lg"
-              >
+              <Button variant="outline" className="px-8 py-6 text-lg">
                 Početna stranica
               </Button>
             </Link>
@@ -48,13 +46,16 @@ export default function UspesnaPorudzbinaPage() {
             </p>
             <div className="mt-4 space-y-2">
               <p className="text-gray-700">
-                <strong>Telefon:</strong>{' '}
-                <a href="tel:+381653232160" className="text-red-500 hover:text-red-600">
+                <strong>Telefon:</strong>{" "}
+                <a
+                  href="tel:+381653232160"
+                  className="text-red-500 hover:text-red-600"
+                >
                   065 3232 160
                 </a>
               </p>
               <p className="text-gray-700">
-                <strong>Email:</strong>{' '}
+                <strong>Email:</strong>{" "}
                 <a
                   href="mailto:zenskecarapebg@gmail.com"
                   className="text-red-500 hover:text-red-600"
@@ -67,5 +68,5 @@ export default function UspesnaPorudzbinaPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

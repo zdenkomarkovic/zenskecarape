@@ -29,7 +29,7 @@ export default function KorpaPage() {
               Izgleda da još niste dodali ništa u korpu.
             </p>
             <Link href="/proizvodi">
-              <Button className="bg-red-500 px-8 py-6 text-lg hover:bg-red-600">
+              <Button className="bg-primary px-8 py-6 text-lg hover:bg-primary/80">
                 Počni sa kupovinom
               </Button>
             </Link>
@@ -128,11 +128,11 @@ export default function KorpaPage() {
                                 item.selectedSize?._id
                               )
                             }
-                            className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 hover:border-gray-400"
+                            className="flex h-5 w-5 md:h-8 md:w-8 items-center justify-center rounded border border-gray-300 hover:border-gray-400"
                           >
-                            <Minus className="h-4 w-4" />
+                            <Minus className="h-3 w-3 md:h-4 md:w-4" />
                           </button>
-                          <span className="min-w-[2rem] text-center font-semibold">
+                          <span className="text-sm md:text-xl text-center font-semibold">
                             {item.quantity}
                           </span>
                           <button
@@ -144,16 +144,16 @@ export default function KorpaPage() {
                                 item.selectedSize?._id
                               )
                             }
-                            className="flex h-8 w-8 items-center justify-center rounded border border-gray-300 hover:border-gray-400"
+                            className="flex  h-5 w-5 md:h-8 md:w-8  items-center justify-center rounded border border-gray-300 hover:border-gray-400"
                           >
-                            <Plus className="h-4 w-4" />
+                            <Plus className="h-3 w-3 md:h-4 md:w-4" />
                           </button>
                         </div>
 
                         {/* Price */}
-                        <div className="flex flex-col items-end">
+                        <div className="flex flex-col items-end ml-1">
                           {item.priceRSD && (
-                            <span className="text-lg font-bold text-gray-900">
+                            <span className="text-sm md:text-lg font-bold text-gray-900">
                               {item.priceRSD * item.quantity} RSD
                             </span>
                           )}
@@ -173,7 +173,7 @@ export default function KorpaPage() {
                               item.selectedSize?._id
                             )
                           }
-                          className="ml-4 text-red-500 hover:text-red-600"
+                          className="ml-1 md:ml-4 text-red-500 hover:text-red-600"
                         >
                           <Trash2 className="h-5 w-5" />
                         </button>
@@ -233,7 +233,7 @@ export default function KorpaPage() {
               </div>
 
               <Link href="/narudzba">
-                <Button className="mt-6 w-full bg-red-500 py-6 text-lg font-semibold hover:bg-red-600">
+                <Button className="mt-6 w-full bg-primary py-6 text-lg font-semibold hover:bg-primary/80">
                   Poruči
                 </Button>
               </Link>

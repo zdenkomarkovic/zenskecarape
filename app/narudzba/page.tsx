@@ -268,7 +268,7 @@ export default function NarudzbaPage() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-red-500 py-6 text-lg font-semibold hover:bg-red-600"
+                    className="w-full bg-primary py-6 text-lg font-semibold hover:bg-primary/80"
                   >
                     {isSubmitting
                       ? "Slanje porudžbine..."

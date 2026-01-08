@@ -4,6 +4,7 @@ import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { mapColors } from "@/lib/constants";
 
 async function getHomepageData() {
   const query = `*[_type == "homepage"][0] {
@@ -42,15 +43,21 @@ async function getCategories() {
 }
 
 export default async function Home() {
-  const [homepageData, featuredProducts, categories] = await Promise.all([
+  const [homepageData, rawFeaturedProducts, categories] = await Promise.all([
     getHomepageData(),
     getFeaturedProducts(),
     getCategories(),
   ]);
 
+  // Mapira colors na očekivani format
+  const featuredProducts = rawFeaturedProducts.map((product: any) => ({
+    ...product,
+    colors: mapColors(product.colors),
+  }));
+
   return (
     <div className="min-h-screen">
-      <section className="relative h-[90dvh] overflow-hidden">
+      <section className="relative h-[95dvh] overflow-hidden">
         {/* Desktop slika */}
         {homepageData?.heroImageDesktop && (
           <div className="absolute inset-0 hidden md:block">
@@ -82,9 +89,9 @@ export default async function Home() {
           </div>
         )}
 
-        <div className="container relative mx-auto flex h-full px-4 items-end">
+        <div className="max-w-7xl relative mx-auto flex h-full px-4 items-end">
           <div className="mb-4 md:mb-12">
-            <h1 className="mb-2 text-5xl font-bold text-white md:text-6xl drop-shadow-lg">
+            <h1 className="mb-2 text-5xl font-bold text-primary md:text-6xl drop-shadow-lg">
               {homepageData?.heroTitle || "Ženske Čarape"}
             </h1>
             {(homepageData?.heroDescription || !homepageData) && (
@@ -101,7 +108,7 @@ export default async function Home() {
                   viewBox="0 0 120 24"
                   strokeWidth={2}
                   stroke="currentColor"
-                  className="h-16 w-36 md:w-48 text-white transition-all duration-300 group-hover:scale-110 drop-shadow-lg"
+                  className="h-16 w-36 md:w-48 text-primary transition-all duration-300 group-hover:scale-110 drop-shadow-lg"
                 >
                   <path
                     strokeLinecap="round"
@@ -117,18 +124,18 @@ export default async function Home() {
 
       {categories.length > 0 && (
         <section className="bg-white py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="mb-12 text-center text-4xl font-bold text-gray-900">
-              Kupuj po kategorijama
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="mb-12 text-center text-4xl font-bold text-primary">
+              Kategorije
             </h2>
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-5">
               {categories.map((category: any) => (
                 <Link
                   key={category._id}
                   href={`/kategorija/${category.slug.current}`}
                   className="group relative overflow-hidden rounded-lg shadow-sm transition-all hover:shadow-xl"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  <div className="relative aspect-[9/16] overflow-hidden">
                     {category.image ? (
                       <>
                         <Image
@@ -160,9 +167,9 @@ export default async function Home() {
 
       {featuredProducts.length > 0 && (
         <section className="bg-gray-50 py-16">
-          <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4">
             <div className="mb-12 flex items-center justify-between">
-              <h2 className="text-4xl font-bold text-gray-900">
+              <h2 className="text-4xl font-bold text-primary">
                 Istaknuti proizvodi
               </h2>
               <Link
@@ -181,12 +188,12 @@ export default async function Home() {
         </section>
       )}
 
-      <section className="bg-red-500 py-16 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="mb-6 text-4xl font-bold">
-            Besplatna dostava za porudžbine preko 3000 RSD
+      <section className="bg-primary py-16 text-white">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h2 className="mb-6 text-4xl font-bold text-white">
+            Brza i pouzdana dostava u Srbiji i širom Evrope
           </h2>
-          <p className="mb-8 text-xl">Brza i pouzdana dostava širom Srbije</p>
+
           <Link href="/proizvodi">
             <Button
               variant="outline"
@@ -199,20 +206,20 @@ export default async function Home() {
       </section>
 
       <section className="bg-white py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-4xl font-bold text-gray-900">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="mb-12 text-center text-4xl font-bold text-primary">
             Zašto izabrati nas?
           </h2>
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-4 md:gap-6 md:grid-cols-4">
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="h-8 w-8 text-red-500"
+                  className="h-8 w-8 text-primary"
                 >
                   <path
                     strokeLinecap="round"
@@ -229,14 +236,14 @@ export default async function Home() {
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="h-8 w-8 text-red-500"
+                  className="h-8 w-8 text-primary"
                 >
                   <path
                     strokeLinecap="round"
@@ -246,21 +253,43 @@ export default async function Home() {
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-semibold text-gray-900">
-                Brza dostava
+                Brza dostava Srbija
               </h3>
               <p className="text-gray-600">
                 Dostava u roku od 2-3 radna dana širom Srbije
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="h-8 w-8 text-red-500"
+                  className="h-8 w-8 text-primary"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64"
+                  />
+                </svg>
+              </div>
+              <h3 className="mb-2 text-xl font-semibold text-gray-900">
+                Brza dostava Evropa
+              </h3>
+              <p className="text-gray-600">Brza dostava širom cele Evrope</p>
+            </div>
+            <div className="text-center">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="h-8 w-8 text-primary"
                 >
                   <path
                     strokeLinecap="round"

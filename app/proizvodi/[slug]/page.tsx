@@ -1,4 +1,4 @@
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,7 +36,7 @@ async function getProduct(slug: string) {
     inStock,
     comingSoon
   }`;
-  return client.fetch(query, { slug });
+  return sanityFetch({ query, params: { slug } });
 }
 
 async function getRelatedProducts(
@@ -55,7 +55,7 @@ async function getRelatedProducts(
     inStock,
     comingSoon
   }`;
-  return client.fetch(query, { categoryId, currentProductId });
+  return sanityFetch({ query, params: { categoryId, currentProductId } });
 }
 
 export default async function ProductPage({

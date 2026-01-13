@@ -1,4 +1,4 @@
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/client";
 import ProductsWithFilter from "@/components/ProductsWithFilter";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -18,7 +18,7 @@ async function getCategory(slug: string) {
     description,
     image
   }`;
-  return client.fetch(query, { slug });
+  return sanityFetch({ query, params: { slug } });
 }
 
 async function getProductsByCategory(categoryId: string) {
@@ -36,7 +36,7 @@ async function getProductsByCategory(categoryId: string) {
     inStock,
     comingSoon
   }`;
-  return client.fetch(query, { categoryId });
+  return sanityFetch({ query, params: { categoryId } });
 }
 
 function getFilterOptions() {

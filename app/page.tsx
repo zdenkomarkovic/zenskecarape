@@ -1,4 +1,4 @@
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
@@ -13,7 +13,7 @@ async function getHomepageData() {
     heroImageDesktop,
     heroImageMobile
   }`;
-  return client.fetch(query);
+  return sanityFetch({ query });
 }
 
 async function getFeaturedProducts() {
@@ -29,7 +29,7 @@ async function getFeaturedProducts() {
     inStock,
     comingSoon
   }`;
-  return client.fetch(query);
+  return sanityFetch({ query });
 }
 
 async function getCategories() {
@@ -39,7 +39,7 @@ async function getCategories() {
     slug,
     image
   }`;
-  return client.fetch(query);
+  return sanityFetch({ query });
 }
 
 export default async function Home() {

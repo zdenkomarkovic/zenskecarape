@@ -33,7 +33,7 @@ async function getFeaturedProducts() {
 }
 
 async function getCategories() {
-  const query = `*[_type == "category"] | order(order asc) [0...4] {
+  const query = `*[_type == "category"] | order(order asc) {
     _id,
     name,
     slug,
@@ -126,40 +126,45 @@ export default async function Home() {
         <section className="bg-white py-16">
           <div className="max-w-7xl mx-auto px-4">
             <h2 className="mb-12 text-center text-4xl font-bold text-primary">
-              Kategorije
+              Kategorije ženskih čarapa
             </h2>
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-5">
-              {categories.map((category: any) => (
-                <Link
-                  key={category._id}
-                  href={`/kategorija/${category.slug.current}`}
-                  className="group relative overflow-hidden rounded-lg shadow-sm transition-all hover:shadow-xl"
-                >
-                  <div className="relative aspect-[9/16] overflow-hidden">
-                    {category.image ? (
-                      <>
-                        <Image
-                          src={urlFor(category.image)
-                            .width(400)
-                            .height(300)
-                            .url()}
-                          alt={category.name}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      </>
-                    ) : (
-                      <div className="h-full w-full bg-gradient-to-br from-red-100 to-red-200" />
-                    )}
-                    <div className="absolute inset-0 flex items-end justify-center p-6">
-                      <h3 className="text-xl font-bold text-white drop-shadow-lg transition-transform group-hover:scale-110">
-                        {category.name}
-                      </h3>
+            <div className="relative -mx-4 px-4 md:mx-0 md:px-0">
+              <div
+                className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory touch-pan-x overscroll-x-contain scroll-smooth"
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
+                {categories.map((category: any) => (
+                  <Link
+                    key={category._id}
+                    href={`/kategorija/${category.slug.current}`}
+                    className="group relative flex-shrink-0 w-32 md:w-48 overflow-hidden rounded-lg shadow-sm transition-all hover:shadow-xl snap-start"
+                  >
+                    <div className="relative aspect-[9/16] overflow-hidden">
+                      {category.image ? (
+                        <>
+                          <Image
+                            src={urlFor(category.image)
+                              .width(400)
+                              .height(700)
+                              .url()}
+                            alt={category.name}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        </>
+                      ) : (
+                        <div className="h-full w-full bg-gradient-to-br from-red-100 to-red-200" />
+                      )}
+                      <div className="absolute inset-0 flex items-end justify-center p-4">
+                        <h3 className="text-lg font-bold text-white drop-shadow-lg transition-transform group-hover:scale-110 text-center">
+                          {category.name}
+                        </h3>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -170,7 +175,7 @@ export default async function Home() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="mb-12 flex items-center justify-between">
               <h2 className="text-4xl font-bold text-primary">
-                Istaknuti proizvodi
+                Istaknuti proizvodi - ženske čarape
               </h2>
               <Link
                 href="/proizvodi"
@@ -191,7 +196,7 @@ export default async function Home() {
       <section className="bg-primary py-16 text-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="mb-6 text-4xl font-bold text-white">
-            Brza i pouzdana dostava u Srbiji i širom Evrope
+            ŽENSKE ČARAPE - Brza i pouzdana dostava u Srbiji i širom Evrope
           </h2>
 
           <Link href="/proizvodi">

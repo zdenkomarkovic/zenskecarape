@@ -4,7 +4,7 @@ export const navList = [
     link: "/",
   },
   {
-    title: "Proizvodi",
+    title: "Ženske čarape",
     link: "/proizvodi",
   },
   {

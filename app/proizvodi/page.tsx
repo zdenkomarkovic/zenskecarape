@@ -131,7 +131,7 @@ export default async function ProizvodiPage() {
 
         <div className="mb-6">
           <h2 className="text-2xl font-semibold text-gray-900">
-            Svi proizvodi
+            Ženske čarape sve kategorije
           </h2>
         </div>
 

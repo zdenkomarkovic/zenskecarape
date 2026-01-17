@@ -98,7 +98,7 @@ export default async function CategoryPage({
           </Link>
           {" / "}
           <Link href="/proizvodi" className="hover:text-gray-900">
-            Proizvodi
+            Ženske čarape
           </Link>
           {" / "}
           <span className="text-gray-900">{category.name}</span>

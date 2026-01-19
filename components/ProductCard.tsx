@@ -52,12 +52,14 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.colors && product.colors.length > 0 && (
             <div className="mb-2 flex gap-1">
               {product.colors.slice(0, 4).map((color: any) => (
-                <div
-                  key={color._id}
-                  className="h-5 w-5 rounded-full border border-gray-300"
-                  style={{ backgroundColor: color.hexCode }}
-                  title={color.name}
-                />
+                color?.hexCode && (
+                  <div
+                    key={color._id}
+                    className="h-5 w-5 rounded-full border border-gray-300"
+                    style={{ backgroundColor: color.hexCode }}
+                    title={color.name}
+                  />
+                )
               ))}
               {product.colors.length > 4 && (
                 <span className="text-xs text-gray-500">

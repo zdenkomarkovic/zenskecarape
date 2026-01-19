@@ -99,23 +99,25 @@ export default function ProductOptions({ product }: ProductOptionsProps) {
           </h3>
           <div className="flex flex-wrap gap-2">
             {product.colors.map((color) => (
-              <button
-                key={color._id}
-                onClick={() => setSelectedColor(color)}
-                className={`flex items-center gap-2 rounded-lg border-2 px-4 py-2 transition-all ${
-                  selectedColor?._id === color._id
-                    ? 'border-red-500 bg-red-50'
-                    : 'border-gray-300 hover:border-gray-400'
-                }`}
-              >
-                <div
-                  className="h-6 w-6 rounded-full border border-gray-300"
-                  style={{ backgroundColor: color.hexCode }}
-                />
-                <span className="text-sm font-medium text-gray-700">
-                  {color.name}
-                </span>
-              </button>
+              color && color.hexCode ? (
+                <button
+                  key={color._id}
+                  onClick={() => setSelectedColor(color)}
+                  className={`flex items-center gap-2 rounded-lg border-2 px-4 py-2 transition-all ${
+                    selectedColor?._id === color._id
+                      ? 'border-red-500 bg-red-50'
+                      : 'border-gray-300 hover:border-gray-400'
+                  }`}
+                >
+                  <div
+                    className="h-6 w-6 rounded-full border border-gray-300"
+                    style={{ backgroundColor: color.hexCode }}
+                  />
+                  <span className="text-sm font-medium text-gray-700">
+                    {color.name}
+                  </span>
+                </button>
+              ) : null
             ))}
           </div>
         </div>

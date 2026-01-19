@@ -130,22 +130,24 @@ export default function ProductFilter({
             <AccordionContent>
               <div className="space-y-1 md:space-y-2">
                 {filters.colors.map((color) => (
-                  <label
-                    key={color._id}
-                    className="flex cursor-pointer items-center gap-2"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedFilters.colors.includes(color._id)}
-                      onChange={() => handleFilterToggle("colors", color._id)}
-                      className="h-4 w-4 rounded border-gray-300 text-red-500 focus:ring-red-500"
-                    />
-                    <div
-                      className="h-5 w-5 rounded-full border border-gray-300"
-                      style={{ backgroundColor: color.hexCode }}
-                    />
-                    <span className="text-sm text-gray-700">{color.name}</span>
-                  </label>
+                  color?.hexCode ? (
+                    <label
+                      key={color._id}
+                      className="flex cursor-pointer items-center gap-2"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedFilters.colors.includes(color._id)}
+                        onChange={() => handleFilterToggle("colors", color._id)}
+                        className="h-4 w-4 rounded border-gray-300 text-red-500 focus:ring-red-500"
+                      />
+                      <div
+                        className="h-5 w-5 rounded-full border border-gray-300"
+                        style={{ backgroundColor: color.hexCode }}
+                      />
+                      <span className="text-sm text-gray-700">{color.name}</span>
+                    </label>
+                  ) : null
                 ))}
               </div>
             </AccordionContent>

@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import ProductOptions from "@/components/ProductOptions";
 import CareInstructionsDisplay from "@/components/CareInstructionsDisplay";
-import { mapColors, mapSizes, mapDenier } from "@/lib/constants";
 
 async function getProduct(slug: string) {
   const query = `*[_type == "product" && slug.current == $slug][0] {
@@ -27,9 +26,9 @@ async function getProduct(slug: string) {
       name,
       slug
     },
-    colors,
-    sizes,
-    denier,
+    colors[]->{ _id, name, hexCode },
+    sizes[]->{ _id, name },
+    denier->{ _id, value },
     composition,
     careInstructions,
     isNew,
@@ -50,7 +49,7 @@ async function getRelatedProducts(
     images,
     priceRSD,
     priceEUR,
-    colors,
+    colors[]->{ _id, name, hexCode },
     isNew,
     inStock,
     comingSoon
@@ -64,19 +63,11 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const rawProduct = await getProduct(slug);
+  const product = await getProduct(slug);
 
-  if (!rawProduct) {
+  if (!product) {
     notFound();
   }
-
-  // Transformiše colors, sizes i denier u očekivani format
-  const product = {
-    ...rawProduct,
-    colors: mapColors(rawProduct.colors),
-    sizes: mapSizes(rawProduct.sizes),
-    denier: mapDenier(rawProduct.denier),
-  };
 
   const relatedProducts = product.category?._id
     ? await getRelatedProducts(product.category._id, product._id)

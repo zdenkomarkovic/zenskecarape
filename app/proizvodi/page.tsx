@@ -3,13 +3,6 @@ import { urlFor } from "@/sanity/lib/image";
 import ProductsWithFilter from "@/components/ProductsWithFilter";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  COLOR_MAP,
-  SIZE_MAP,
-  mapColors,
-  mapSizes,
-  mapDenier,
-} from "@/lib/constants";
 
 async function getCategories() {
   const query = `*[_type == "category"] | order(order asc) {
@@ -29,9 +22,9 @@ async function getProducts() {
     images,
     priceRSD,
     priceEUR,
-    colors,
-    sizes,
-    denier,
+    colors[]->{ _id, name, hexCode },
+    sizes[]->{ _id, name },
+    denier->{ _id, value },
     isNew,
     inStock,
     comingSoon
@@ -39,24 +32,31 @@ async function getProducts() {
   return sanityFetch({ query });
 }
 
-function getFilterOptions() {
-  // Konvertuje COLOR_MAP i SIZE_MAP u array format
-  const colors = Object.values(COLOR_MAP);
-  const sizes = Object.values(SIZE_MAP);
-  const deniers = [
-    { _id: "8", value: "8 Den" },
-    { _id: "10", value: "10 Den" },
-    { _id: "15", value: "15 Den" },
-    { _id: "20", value: "20 Den" },
-    { _id: "30", value: "30 Den" },
-    { _id: "40", value: "40 Den" },
-    { _id: "50", value: "50 Den" },
-    { _id: "60", value: "60 Den" },
-    { _id: "70", value: "70 Den" },
-    { _id: "80", value: "80 Den" },
-    { _id: "100", value: "100 Den" },
-    { _id: "120", value: "120 Den" },
-  ];
+async function getFilterOptions() {
+  // Povlači boje iz Sanity-a
+  const colorsQuery = `*[_type == "color"] | order(name asc) {
+    _id,
+    name,
+    hexCode
+  }`;
+
+  // Povlači veličine iz Sanity-a
+  const sizesQuery = `*[_type == "size"] | order(order asc) {
+    _id,
+    name
+  }`;
+
+  // Povlači debljine iz Sanity-a
+  const deniersQuery = `*[_type == "denier"] | order(order asc) {
+    _id,
+    value
+  }`;
+
+  const [colors, sizes, deniers] = await Promise.all([
+    sanityFetch({ query: colorsQuery }),
+    sanityFetch({ query: sizesQuery }),
+    sanityFetch({ query: deniersQuery }),
+  ]);
 
   return {
     sizes,
@@ -68,20 +68,14 @@ function getFilterOptions() {
 }
 
 export default async function ProizvodiPage() {
-  const [categories, rawProducts] = await Promise.all([
+  const [categories, rawProducts, filterOptions] = await Promise.all([
     getCategories(),
     getProducts(),
+    getFilterOptions(),
   ]);
 
-  const filterOptions = getFilterOptions();
-
-  // Mapira colors, sizes i denier na očekivani format
-  const products = rawProducts.map((product: any) => ({
-    ...product,
-    colors: mapColors(product.colors),
-    sizes: mapSizes(product.sizes),
-    denier: mapDenier(product.denier),
-  }));
+  // Proizvodi već dolaze u očekivanom formatu iz Sanity-a
+  const products = rawProducts;
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">

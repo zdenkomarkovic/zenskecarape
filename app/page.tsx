@@ -4,7 +4,6 @@ import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { mapColors } from "@/lib/constants";
 
 async function getHomepageData() {
   const query = `*[_type == "homepage"][0] {
@@ -24,7 +23,7 @@ async function getFeaturedProducts() {
     images,
     priceRSD,
     priceEUR,
-    colors,
+    colors[]->{ _id, name, hexCode },
     isNew,
     inStock,
     comingSoon
@@ -43,17 +42,11 @@ async function getCategories() {
 }
 
 export default async function Home() {
-  const [homepageData, rawFeaturedProducts, categories] = await Promise.all([
+  const [homepageData, featuredProducts, categories] = await Promise.all([
     getHomepageData(),
     getFeaturedProducts(),
     getCategories(),
   ]);
-
-  // Mapira colors na očekivani format
-  const featuredProducts = rawFeaturedProducts.map((product: any) => ({
-    ...product,
-    colors: mapColors(product.colors),
-  }));
 
   return (
     <div className="min-h-screen">

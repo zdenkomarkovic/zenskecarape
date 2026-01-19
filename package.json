@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "images:optimize": "node scripts/convert-images.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sanity:seed": "tsx scripts/seed-data.ts",
+    "sanity:migrate": "tsx scripts/migrate-products.ts",
+    "sanity:check": "tsx scripts/check-products.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.0.0",
@@ -17,6 +20,7 @@
     "@radix-ui/react-hover-card": "^1.1.6",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
+    "@sanity/client": "^7.14.0",
     "@sanity/image-url": "^2.0.2",
     "@sanity/vision": "^3.99.0",
     "class-variance-authority": "^0.7.1",
@@ -51,11 +55,13 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "postcss": "^8",
     "sharp": "^0.34.4",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

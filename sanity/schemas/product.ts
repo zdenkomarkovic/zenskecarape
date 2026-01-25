@@ -16,8 +16,38 @@ export default defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'name',
+        source: (doc: any) => {
+          const name = doc.name || 'proizvod'
+          const randomId = Math.random().toString(36).substring(2, 6)
+          return `${name}-${randomId}`
+        },
         maxLength: 96,
+        slugify: (input: string) => {
+          return input
+            .toLowerCase()
+            .replace(/ć/g, 'c')
+            .replace(/č/g, 'c')
+            .replace(/š/g, 's')
+            .replace(/ž/g, 'z')
+            .replace(/đ/g, 'dj')
+            .replace(/[^\w\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim()
+        },
+        isUnique: async (slug, context) => {
+          const { document, getClient } = context
+          const client = getClient({ apiVersion: '2024-01-01' })
+          const id = document?._id?.replace(/^drafts\./, '')
+          const params = {
+            draft: `drafts.${id}`,
+            published: id,
+            slug,
+          }
+          const query = `!defined(*[_type == "product" && slug.current == $slug && !(_id in [$draft, $published])][0]._id)`
+          const result = await client.fetch(query, params)
+          return result
+        },
       },
       validation: (Rule) => Rule.required(),
     }),

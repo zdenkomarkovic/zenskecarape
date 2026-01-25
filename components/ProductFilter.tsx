@@ -8,6 +8,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 interface FilterOptions {
   sizes: Array<{ _id: string; name: string }>;
@@ -26,6 +28,7 @@ export default function ProductFilter({
   filters,
   onFilterChange,
 }: ProductFilterProps) {
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilters, setSelectedFilters] = useState<{
     sizes: string[];
     colors: string[];
@@ -52,9 +55,15 @@ export default function ProductFilter({
         [category]: newCategoryFilters,
       };
 
-      onFilterChange(newFilters);
+      onFilterChange({ ...newFilters, searchTerm });
       return newFilters;
     });
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    onFilterChange({ ...selectedFilters, searchTerm: value });
   };
 
   const clearAllFilters = () => {
@@ -65,13 +74,14 @@ export default function ProductFilter({
       productTypes: [],
       features: [],
     };
+    setSearchTerm("");
     setSelectedFilters(emptyFilters);
-    onFilterChange(emptyFilters);
+    onFilterChange({ ...emptyFilters, searchTerm: "" });
   };
 
   const hasActiveFilters = Object.values(selectedFilters).some(
     (arr) => arr.length > 0
-  );
+  ) || searchTerm !== "";
 
   return (
     <div className="rounded-lg bg-white p-4 md:p-6 shadow-sm">
@@ -89,6 +99,19 @@ export default function ProductFilter({
             Obriši sve
           </Button>
         )}
+      </div>
+
+      <div className="mb-4">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <Input
+            type="text"
+            placeholder="Pretraži po imenu..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="pl-10"
+          />
+        </div>
       </div>
 
       <Accordion type="multiple" className="w-full">

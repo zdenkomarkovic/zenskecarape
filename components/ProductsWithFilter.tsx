@@ -29,6 +29,7 @@ export default function ProductsWithFilter({
     deniers: [] as string[],
     productTypes: [] as string[],
     features: [] as string[],
+    searchTerm: "",
   });
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -37,6 +38,15 @@ export default function ProductsWithFilter({
     setCurrentPage(1);
 
     return initialProducts.filter((product) => {
+      // Filtriranje po imenu
+      if (filters.searchTerm) {
+        const searchLower = filters.searchTerm.toLowerCase();
+        const productName = product.name?.toLowerCase() || "";
+        if (!productName.includes(searchLower)) {
+          return false;
+        }
+      }
+
       if (filters.sizes.length > 0) {
         const productSizeIds = product.sizes?.map((s: any) => s._id) || [];
         if (!filters.sizes.some((sizeId) => productSizeIds.includes(sizeId))) {

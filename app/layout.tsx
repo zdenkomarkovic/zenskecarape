@@ -17,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ženske Čarape | Hulahopke, Štikle, Samostojeće Čarape",
-  description: "Kvalitetne ženske čarape, hulahopke i štikle. Širok asortiman prozirnih, neprozirnih i šarenih čarapa. Besplatna dostava za porudžbine preko 3000 RSD.",
+  description:
+    "Kvalitetne ženske čarape, hulahopke i štikle. Širok asortiman prozirnih, neprozirnih i šarenih čarapa. Besplatna dostava za porudžbine preko 3000 RSD.",
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     "denier čarape",
   ],
   alternates: {
-    canonical: "https://www.zenske-carape.com/",
+    canonical: "https://zenskecarapebg.rs/",
   },
 };
 

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ženske Čarape | Hulahopke, Štikle, Samostojeće Čarape",
+  title: "Ženske Čarape Bg",
   description:
     "Kvalitetne ženske čarape, hulahopke i štikle. Širok asortiman prozirnih, neprozirnih i šarenih čarapa. Besplatna dostava za porudžbine preko 3000 RSD.",
   icons: {

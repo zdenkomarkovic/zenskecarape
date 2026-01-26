@@ -1,6 +1,6 @@
 import React from "react";
 import ContactForm from "@/components/ContactForm";
-import { Phone, Mail, Instagram, Facebook, MapPin } from "lucide-react";
+import { Mail, Instagram, Facebook, MapPin } from "lucide-react";
 
 const KontaktPage = () => {
   return (
@@ -21,18 +21,6 @@ const KontaktPage = () => {
             {/* Contact Information */}
             <div className="bg-white rounded-lg shadow-sm p-8">
               <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <Phone className="h-6 w-6 text-primary mt-1" />
-                  <div>
-                    <a
-                      href="tel:+381653232160"
-                      className="text-gray-600 hover:text-primary transition-colors"
-                    >
-                      065 3232 160
-                    </a>
-                  </div>
-                </div>
-
                 <div className="flex items-start gap-4">
                   <Mail className="h-6 w-6 text-primary mt-1" />
                   <div>

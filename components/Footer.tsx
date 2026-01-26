@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Mail, Phone, Instagram, Facebook } from "lucide-react";
+import { Mail, Instagram, Facebook } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -17,13 +17,6 @@ export default function Footer() {
           <div className=" text-center">
             <h3 className="text-lg font-bold text-primary mb-4">Kontakt</h3>
             <div className="space-y-3 text-center">
-              <a
-                href="tel:+381653232160"
-                className="flex items-center gap-2 hover:text-primary transition-colors justify-center"
-              >
-                <Phone className="w-5 h-5" />
-                <span>065 3232 160</span>
-              </a>
               <a
                 href="mailto:zenskecarapebg@gmail.com"
                 className="flex items-center gap-2 hover:text-primary transition-colors justify-center"

@@ -1,6 +1,4 @@
 import { sanityFetch } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductImageGallery from "@/components/ProductImageGallery";

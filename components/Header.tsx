@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Logo from "../public/android-chrome-192x192.png";
 import Link from "next/link";
-import { MenuIcon, PhoneIcon } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 
 import {
@@ -127,18 +127,6 @@ export default function Header() {
                   {getTotalItems()}
                 </span>
               )}
-            </motion.button>
-          </Link>
-          <Link href="tel:+381653232160">
-            <motion.button
-              whileHover={{
-                color: "hsl(var(--foreground))",
-                backgroundColor: "hsl(var(--primary))",
-              }}
-              className="items-center justify-center rounded-full text-primary border-primary border-2 text-sm md:text-lg py-1 px-2 md:py-2 md:px-4 transition-colors hidden sm:flex"
-            >
-              <PhoneIcon />
-              <p className="">065 3232 160</p>
             </motion.button>
           </Link>
         </div>

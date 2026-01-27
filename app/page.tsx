@@ -4,6 +4,12 @@ import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 async function getHomepageData() {
   const query = `*[_type == "homepage"][0] {
@@ -48,8 +54,61 @@ export default async function Home() {
     getCategories(),
   ]);
 
+  // FAQ Schema for SEO
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Šta je denier kod ženskih čarapa?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Denier (Den) označava debljinu i prozirnost čarapa. Niži denier (8-20 Den) znači prozirnije i lepše čarape, idealne za elegantne prilike. Viši denier (40-80 Den) pruža veću toplotu i pokrivanje, savršene za svakodnevno nošenje.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Kako da odredim svoju veličinu ženskih čarapa?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Veličina čarapa zavisi od visine i težine. Najčešće se koriste veličine S (150-165cm, 50-60kg), M (160-175cm, 55-70kg), L (170-180cm, 65-80kg), i XL (175-185cm, 75-90kg). Uvek proverite tabelu veličina na stranici proizvoda.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Koliko traje dostava?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Dostava u Srbiji traje 2-3 radna dana od potvrde porudžbine. Za dostavu u inostranstvo, rok isporuke je 5-10 radnih dana u zavisnosti od destinacije.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Koja je razlika između hulahopki i samostojećih čarapa?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Hulahopke pokrivaju celu nogu i stopalo, pružajući kompletnu pokrivenost. Samostojeće čarape idu do kolena ili bedara i imaju silikonsku traku koja ih drži na mestu bez potrebe za hulahopkama ili podvezama.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Kako da produžim vek trajanja čarapa?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Perite čarape ručno u mlakoj vodi sa blagim deterdžentom. Nemojte ih cediti ili sušiti u mašini. Pažljivo ih navlačite, izbegavajte oštre nokte i nakit. Čuvajte ih odvojeno od druge odeće.",
+        },
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen">
+      {/* FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <section className="relative h-[95dvh] overflow-hidden">
         {/* Desktop slika */}
         {homepageData?.heroImageDesktop && (
@@ -303,6 +362,91 @@ export default async function Home() {
                 Tu smo za vas svakog dana od 9h do 21h
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="mb-8 text-center text-4xl font-bold text-primary">
+            Često postavljana pitanja
+          </h2>
+          <p className="mb-12 text-center text-gray-600">
+            Pronađite odgovore na najčešća pitanja o ženskim čarapama
+          </p>
+
+          <div className="rounded-lg bg-white p-6 shadow-sm">
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-base md:text-lg font-semibold text-primary">
+                  Šta je denier kod ženskih čarapa?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Denier (Den) označava debljinu i prozirnost čarapa. Niži
+                  denier (8-20 Den) znači{" "}
+                  <Link href="/kategorija/prozirne-carape" className="text-primary hover:underline">
+                    prozirnije čarape
+                  </Link>, idealne za elegantne prilike. Viši denier (40-80 Den) pruža{" "}
+                  <Link href="/kategorija/neprozirne-carape" className="text-primary hover:underline">
+                    neprozirne čarape
+                  </Link>{" "}
+                  sa većom toplinom i pokrivanjem, savršene za svakodnevno nošenje.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2">
+                <AccordionTrigger className="text-base md:text-lg font-semibold text-primary">
+                  Kako da odredim svoju veličinu ženskih čarapa?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Veličina čarapa zavisi od visine i težine. Najčešće se koriste
+                  veličine S (150-165cm, 50-60kg), M (160-175cm, 55-70kg), L
+                  (170-180cm, 65-80kg), i XL (175-185cm, 75-90kg). Uvek
+                  proverite tabelu veličina na{" "}
+                  <Link href="/proizvodi" className="text-primary hover:underline">
+                    stranici proizvoda
+                  </Link>.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-4">
+                <AccordionTrigger className="text-base md:text-lg font-semibold text-primary">
+                  Koliko traje dostava?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Dostava u Srbiji traje 2-3 radna dana od potvrde porudžbine.
+                  Za dostavu u inostranstvo, rok isporuke je 5-10 radnih dana u
+                  zavisnosti od destinacije.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-5">
+                <AccordionTrigger className="text-base md:text-lg font-semibold text-primary">
+                  Koja je razlika između hulahopki i samostojećih čarapa?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Hulahopke pokrivaju celu nogu i stopalo, pružajući kompletnu
+                  pokrivenost.{" "}
+                  <Link href="/kategorija/samostojece-carape" className="text-primary hover:underline">
+                    Samostojeće čarape
+                  </Link>{" "}
+                  idu do kolena ili bedara i imaju silikonsku traku koja ih drži
+                  na mestu bez potrebe za hulahopkama ili podvezama.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-6">
+                <AccordionTrigger className="text-base md:text-lg font-semibold text-primary">
+                  Kako da produžim vek trajanja čarapa?
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Perite čarape ručno u mlakoj vodi sa blagim deterdžentom.
+                  Nemojte ih cediti ili sušiti u mašini. Pažljivo ih navlačite,
+                  izbegavajte oštre nokte i nakit. Čuvajte ih odvojeno od druge
+                  odeće.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>

@@ -12,21 +12,7 @@ export default function Footer() {
       transition={{ delay: 0.5 }}
     >
       <div className="container mx-auto px-4 md:px-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Contact Info */}
-          <div className=" text-center">
-            <h3 className="text-lg font-bold text-primary mb-4">Kontakt</h3>
-            <div className="space-y-3 text-center">
-              <a
-                href="mailto:zenskecarapebg@gmail.com"
-                className="flex items-center gap-2 hover:text-primary transition-colors justify-center"
-              >
-                <Mail className="w-5 h-5" />
-                <span>zenskecarapebg@gmail.com</span>
-              </a>
-            </div>
-          </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-8">
           {/* Quick Links */}
           <div className="text-center">
             <h3 className="text-lg font-bold text-primary mb-4">
@@ -34,10 +20,16 @@ export default function Footer() {
             </h3>
             <div className="space-y-2">
               <Link
+                href="/"
+                className="block hover:text-primary transition-colors"
+              >
+                Početna
+              </Link>
+              <Link
                 href="/proizvodi"
                 className="block hover:text-primary transition-colors"
               >
-                Proizvodi
+                Ženske čarape
               </Link>
               <Link
                 href="/kontakt"
@@ -54,8 +46,22 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Contact Info */}
+          <div className="text-center">
+            <h3 className="text-lg font-bold text-primary mb-4">Kontakt</h3>
+            <div className="space-y-3 text-center">
+              <a
+                href="mailto:zenskecarapebg@gmail.com"
+                className="flex items-center gap-2 hover:text-primary transition-colors justify-center"
+              >
+                <Mail className="w-5 h-5" />
+                <span>zenskecarapebg@gmail.com</span>
+              </a>
+            </div>
+          </div>
+
           {/* Social Media */}
-          <div>
+          <div className="text-center">
             <h3 className="text-lg font-bold text-primary mb-4">Pratite nas</h3>
             <div className="flex gap-4 justify-center">
               <a

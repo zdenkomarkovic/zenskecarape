@@ -1,9 +1,13 @@
 import { sanityFetch } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import ProductOptions from "@/components/ProductOptions";
 import CareInstructionsDisplay from "@/components/CareInstructionsDisplay";
+import type { Metadata } from "next";
+
+const SITE_URL = "https://zenskecarapebg.rs";
 
 async function getProduct(slug: string) {
   const query = `*[_type == "product" && slug.current == $slug][0] {
@@ -34,6 +38,63 @@ async function getProduct(slug: string) {
     comingSoon
   }`;
   return sanityFetch({ query, params: { slug } });
+}
+
+// Dynamic metadata generation
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProduct(slug);
+
+  if (!product) {
+    return {
+      title: "Proizvod nije pronađen",
+    };
+  }
+
+  const colors = product.colors?.map((c: any) => c.name).join(", ") || "";
+  const denier = product.denier?.value || "";
+  const category = product.category?.name || "Ženske čarape";
+
+  const title = `${product.name} | ${category} | Kupovina Online`;
+  const description = `Kupite ${product.name}${denier ? ` - ${denier}` : ""}${colors ? ` - Dostupne boje: ${colors}` : ""}. ${product.priceRSD ? `Cena ${product.priceRSD} RSD` : ""}${product.priceEUR ? ` (${product.priceEUR} EUR)` : ""}. Brza dostava u Srbiji ✓ Besplatna dostava preko 3000 RSD.`;
+
+  const imageUrl = product.images?.[0]
+    ? urlFor(product.images[0]).width(1200).height(630).url()
+    : `${SITE_URL}/hero.jpg`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${SITE_URL}/proizvodi/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${SITE_URL}/proizvodi/${slug}`,
+      siteName: "Ženske Čarape Bg",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: product.name,
+        },
+      ],
+      locale: "sr_RS",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
+    },
+  };
 }
 
 async function getRelatedProducts(
@@ -71,32 +132,118 @@ export default async function ProductPage({
     ? await getRelatedProducts(product.category._id, product._id)
     : [];
 
+  // Generate JSON-LD structured data
+  const productImageUrl = product.images?.[0]
+    ? urlFor(product.images[0]).width(800).height(800).url()
+    : `${SITE_URL}/hero.jpg`;
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description || `Kvalitetne ${product.name}`,
+    image: product.images?.map((img: any) =>
+      urlFor(img).width(800).height(800).url()
+    ) || [productImageUrl],
+    sku: product._id,
+    offers: {
+      "@type": "Offer",
+      price: product.priceRSD || product.priceEUR || 0,
+      priceCurrency: product.priceRSD ? "RSD" : "EUR",
+      availability: product.inStock
+        ? "https://schema.org/InStock"
+        : product.comingSoon
+          ? "https://schema.org/PreOrder"
+          : "https://schema.org/OutOfStock",
+      url: `${SITE_URL}/proizvodi/${slug}`,
+      seller: {
+        "@type": "Organization",
+        name: "Ženske Čarape Bg",
+      },
+    },
+    brand: {
+      "@type": "Brand",
+      name: "Ženske Čarape Bg",
+    },
+    ...(product.category && {
+      category: product.category.name,
+    }),
+  };
+
+  // Generate BreadcrumbList schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Početna",
+        item: SITE_URL,
+      },
+      ...(product.category
+        ? [
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: product.category.name,
+              item: `${SITE_URL}/kategorija/${product.category.slug.current}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: product.name,
+              item: `${SITE_URL}/proizvodi/${slug}`,
+            },
+          ]
+        : [
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: product.name,
+              item: `${SITE_URL}/proizvodi/${slug}`,
+            },
+          ]),
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-4 text-sm text-gray-600">
-          <Link href="/" className="hover:text-gray-900">
-            Početna
-          </Link>
-          {product.category && (
-            <>
-              {" / "}
-              <Link
-                href={`/kategorija/${product.category.slug.current}`}
-                className="hover:text-gray-900"
-              >
-                {product.category.name}
-              </Link>
-            </>
-          )}
-          {" / "}
-          <span className="text-gray-900">{product.name}</span>
-        </div>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-4 text-sm text-gray-600">
+            <Link href="/" className="hover:text-gray-900">
+              Početna
+            </Link>
+            {product.category && (
+              <>
+                {" / "}
+                <Link
+                  href={`/kategorija/${product.category.slug.current}`}
+                  className="hover:text-gray-900"
+                >
+                  {product.category.name}
+                </Link>
+              </>
+            )}
+            {" / "}
+            <span className="text-gray-900">{product.name}</span>
+          </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
           <ProductImageGallery
             images={product.images}
             productName={product.name}
+            colors={product.colors}
+            denier={product.denier}
           />
 
           <div className="rounded-lg bg-white p-6 shadow-sm lg:p-8">

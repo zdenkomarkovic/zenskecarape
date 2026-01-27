@@ -7,11 +7,15 @@ import { urlFor } from '@/sanity/lib/image'
 interface ProductImageGalleryProps {
   images: any[]
   productName: string
+  colors?: any[]
+  denier?: { value: string }
 }
 
 export default function ProductImageGallery({
   images,
   productName,
+  colors,
+  denier,
 }: ProductImageGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0)
 
@@ -25,12 +29,17 @@ export default function ProductImageGallery({
     )
   }
 
+  // Generate SEO-optimized alt text
+  const colorNames = colors?.map((c: any) => c.name).join(", ") || "";
+  const denierText = denier?.value || "";
+  const baseAlt = `${productName}${denierText ? ` - ${denierText}` : ""}${colorNames ? ` - ${colorNames}` : ""} - Ženske čarape`;
+
   return (
     <div className="space-y-4">
       <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-white shadow-sm">
         <Image
           src={urlFor(images[selectedImage]).width(800).height(1000).url()}
-          alt={`${productName} - slika ${selectedImage + 1}`}
+          alt={`${baseAlt} - Slika ${selectedImage + 1}`}
           fill
           className="object-cover"
           priority
@@ -51,7 +60,7 @@ export default function ProductImageGallery({
             >
               <Image
                 src={urlFor(image).width(200).height(250).url()}
-                alt={`${productName} - thumbnail ${index + 1}`}
+                alt={`${baseAlt} - Thumbnail ${index + 1}`}
                 fill
                 className="object-cover"
               />

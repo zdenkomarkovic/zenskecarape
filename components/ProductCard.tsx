@@ -22,13 +22,17 @@ export default function ProductCard({ product }: ProductCardProps) {
     ? urlFor(product.images[0]).width(400).height(500).url()
     : '/placeholder.jpg'
 
+  // Generate SEO-optimized alt text
+  const colors = product.colors?.map((c: any) => c.name).join(", ") || "";
+  const altText = `${product.name}${colors ? ` - ${colors}` : ""} - Ženske čarape`;
+
   return (
     <Link href={`/proizvodi/${product.slug.current}`} className="h-full">
       <div className="group relative flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-sm transition-shadow hover:shadow-lg">
         <div className="relative aspect-[4/5] overflow-hidden">
           <Image
             src={imageUrl}
-            alt={product.name}
+            alt={altText}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />

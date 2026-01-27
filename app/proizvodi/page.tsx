@@ -3,6 +3,43 @@ import { urlFor } from "@/sanity/lib/image";
 import ProductsWithFilter from "@/components/ProductsWithFilter";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+const SITE_URL = "https://zenskecarapebg.rs";
+
+// Static metadata for products page
+export const metadata: Metadata = {
+  title: "Ženske Čarape - Sve Kategorije | Kupovina Online",
+  description:
+    "Pregledajte kompletan asortiman ženskih čarapa. Prozirne, neprozirne, samostojeće čarape i hulahopke. Širok izbor boja, veličina i denira. Brza dostava u Srbiji. Besplatna dostava za porudžbine preko 3000 RSD.",
+  alternates: {
+    canonical: `${SITE_URL}/proizvodi`,
+  },
+  openGraph: {
+    title: "Ženske Čarape - Sve Kategorije | Kupovina Online",
+    description:
+      "Pregledajte kompletan asortiman ženskih čarapa. Prozirne, neprozirne, samostojeće čarape i hulahopke.",
+    url: `${SITE_URL}/proizvodi`,
+    siteName: "Ženske Čarape Bg",
+    images: [
+      {
+        url: `${SITE_URL}/hero.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Ženske Čarape",
+      },
+    ],
+    locale: "sr_RS",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ženske Čarape - Sve Kategorije | Kupovina Online",
+    description:
+      "Pregledajte kompletan asortiman ženskih čarapa. Prozirne, neprozirne, samostojeće čarape i hulahopke.",
+    images: [`${SITE_URL}/hero.jpg`],
+  },
+};
 
 async function getCategories() {
   const query = `*[_type == "category"] | order(order asc) {
@@ -77,9 +114,34 @@ export default async function ProizvodiPage() {
   // Proizvodi već dolaze u očekivanom formatu iz Sanity-a
   const products = rawProducts;
 
+  // Generate BreadcrumbList schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Početna",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Ženske čarape",
+        item: `${SITE_URL}/proizvodi`,
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+        <div className="max-w-7xl mx-auto px-4 py-8">
         {categories.length > 0 && (
           <div className="mb-12">
             <div className="relative -mx-4 px-4 md:mx-0 md:px-0">

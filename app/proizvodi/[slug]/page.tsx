@@ -6,6 +6,7 @@ import ProductImageGallery from "@/components/ProductImageGallery";
 import ProductOptions from "@/components/ProductOptions";
 import CareInstructionsDisplay from "@/components/CareInstructionsDisplay";
 import type { Metadata } from "next";
+import SizeGuide from "@/components/SizeGuide";
 
 const SITE_URL = "https://zenskecarapebg.rs";
 
@@ -218,25 +219,25 @@ export default async function ProductPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-        <div className="container mx-auto px-4 py-8">
-          <div className="mb-4 text-sm text-gray-600">
-            <Link href="/" className="hover:text-gray-900">
-              Početna
-            </Link>
-            {product.category && (
-              <>
-                {" / "}
-                <Link
-                  href={`/kategorija/${product.category.slug.current}`}
-                  className="hover:text-gray-900"
-                >
-                  {product.category.name}
-                </Link>
-              </>
-            )}
-            {" / "}
-            <span className="text-gray-900">{product.name}</span>
-          </div>
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-4 text-sm text-gray-600">
+          <Link href="/" className="hover:text-gray-900">
+            Početna
+          </Link>
+          {product.category && (
+            <>
+              {" / "}
+              <Link
+                href={`/kategorija/${product.category.slug.current}`}
+                className="hover:text-gray-900"
+              >
+                {product.category.name}
+              </Link>
+            </>
+          )}
+          {" / "}
+          <span className="text-gray-900">{product.name}</span>
+        </div>
 
         <div className="grid gap-8 lg:grid-cols-2">
           <ProductImageGallery
@@ -308,6 +309,7 @@ export default async function ProductPage({
           </div>
         </div>
       </div>
+      <SizeGuide />
     </div>
   );
 }

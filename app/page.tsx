@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import SizeGuide from "@/components/SizeGuide";
 
 async function getHomepageData() {
   const query = `*[_type == "homepage"][0] {
@@ -261,7 +262,7 @@ export default async function Home() {
           </Link>
         </div>
       </section>
-
+      <SizeGuide />
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="mb-12 text-center text-4xl font-bold text-primary">
@@ -384,13 +385,21 @@ export default async function Home() {
                 <AccordionContent className="text-gray-600">
                   Denier (Den) označava debljinu i prozirnost čarapa. Niži
                   denier (8-20 Den) znači{" "}
-                  <Link href="/kategorija/prozirne-carape" className="text-primary hover:underline">
+                  <Link
+                    href="/kategorija/prozirne-carape"
+                    className="text-primary hover:underline"
+                  >
                     prozirnije čarape
-                  </Link>, idealne za elegantne prilike. Viši denier (40-80 Den) pruža{" "}
-                  <Link href="/kategorija/neprozirne-carape" className="text-primary hover:underline">
+                  </Link>
+                  , idealne za elegantne prilike. Viši denier (40-80 Den) pruža{" "}
+                  <Link
+                    href="/kategorija/neprozirne-carape"
+                    className="text-primary hover:underline"
+                  >
                     neprozirne čarape
                   </Link>{" "}
-                  sa većom toplinom i pokrivanjem, savršene za svakodnevno nošenje.
+                  sa većom toplinom i pokrivanjem, savršene za svakodnevno
+                  nošenje.
                 </AccordionContent>
               </AccordionItem>
 
@@ -403,9 +412,13 @@ export default async function Home() {
                   veličine S (150-165cm, 50-60kg), M (160-175cm, 55-70kg), L
                   (170-180cm, 65-80kg), i XL (175-185cm, 75-90kg). Uvek
                   proverite tabelu veličina na{" "}
-                  <Link href="/proizvodi" className="text-primary hover:underline">
+                  <Link
+                    href="/proizvodi"
+                    className="text-primary hover:underline"
+                  >
                     stranici proizvoda
-                  </Link>.
+                  </Link>
+                  .
                 </AccordionContent>
               </AccordionItem>
 
@@ -427,7 +440,10 @@ export default async function Home() {
                 <AccordionContent className="text-gray-600">
                   Hulahopke pokrivaju celu nogu i stopalo, pružajući kompletnu
                   pokrivenost.{" "}
-                  <Link href="/kategorija/samostojece-carape" className="text-primary hover:underline">
+                  <Link
+                    href="/kategorija/samostojece-carape"
+                    className="text-primary hover:underline"
+                  >
                     Samostojeće čarape
                   </Link>{" "}
                   idu do kolena ili bedara i imaju silikonsku traku koja ih drži

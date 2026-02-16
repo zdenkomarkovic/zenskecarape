@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ženske Čarape Bg",
+  title: "Ženske čarape Bg",
   description:
     "Kvalitetne ženske čarape, hulahopke i štikle. Širok asortiman prozirnih, neprozirnih i šarenih čarapa. Besplatna dostava za porudžbine preko 3000 RSD.",
   icons: {
@@ -79,7 +79,8 @@ export default function RootLayout({
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://zenskecarapebg.rs/proizvodi?search={search_term_string}",
+        urlTemplate:
+          "https://zenskecarapebg.rs/proizvodi?search={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },

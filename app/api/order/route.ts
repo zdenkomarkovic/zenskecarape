@@ -96,7 +96,7 @@ Cena: ${item.priceRSD ? `${item.priceRSD * item.quantity} RSD` : ""} ${item.pric
         {
           From: {
             Email: process.env.SITE_MAIL_SENDER!,
-            Name: "Ženske Čarape - Porudžbine",
+            Name: "Ženske čarape - Porudžbine",
           },
           To: [
             {

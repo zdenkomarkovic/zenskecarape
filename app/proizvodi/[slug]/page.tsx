@@ -61,7 +61,7 @@ export async function generateMetadata({
   const category = product.category?.name || "Ženske čarape";
 
   const title = `${product.name} | ${category} | Kupovina Online`;
-  const description = `Kupite ${product.name}${denier ? ` - ${denier}` : ""}${colors ? ` - Dostupne boje: ${colors}` : ""}. ${product.priceRSD ? `Cena ${product.priceRSD} RSD` : ""}${product.priceEUR ? ` (${product.priceEUR} EUR)` : ""}. Brza dostava u Srbiji ✓ Besplatna dostava preko 3000 RSD.`;
+  const description = `Kupite ${product.name}${denier ? ` - ${denier}` : ""}${colors ? ` - Dostupne boje: ${colors}` : ""}. ${product.priceRSD ? `Cena ${product.priceRSD} RSD` : ""}${product.priceEUR ? ` (${product.priceEUR} EUR)` : ""}. Brza dostava u Srbiji ✓`;
 
   const imageUrl = product.images?.[0]
     ? urlFor(product.images[0]).width(1200).height(630).url()

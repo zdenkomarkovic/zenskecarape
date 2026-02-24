@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Ženske čarape Bg",
   description:
-    "Kvalitetne ženske čarape, hulahopke i štikle. Širok asortiman prozirnih, neprozirnih i šarenih čarapa. Besplatna dostava za porudžbine preko 3000 RSD.",
+    "Kvalitetne ženske čarape, hulahopke i štikle. Širok asortiman prozirnih, neprozirnih i šarenih čarapa..",
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },

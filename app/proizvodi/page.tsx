@@ -11,7 +11,7 @@ const SITE_URL = "https://zenskecarapebg.rs";
 export const metadata: Metadata = {
   title: "Ženske Čarape - Sve Kategorije | Kupovina Online",
   description:
-    "Pregledajte kompletan asortiman ženskih čarapa. Prozirne, neprozirne, samostojeće čarape i hulahopke. Širok izbor boja, veličina i denira. Brza dostava u Srbiji. Besplatna dostava za porudžbine preko 3000 RSD.",
+    "Pregledajte kompletan asortiman ženskih čarapa. Prozirne, neprozirne, samostojeće čarape i hulahopke. Širok izbor boja, veličina i denira. Brza dostava u Srbiji.",
   alternates: {
     canonical: `${SITE_URL}/proizvodi`,
   },
@@ -141,7 +141,7 @@ export default async function ProizvodiPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-        <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {categories.length > 0 && (
           <div className="mb-12">
             <div className="relative -mx-4 px-4 md:mx-0 md:px-0">

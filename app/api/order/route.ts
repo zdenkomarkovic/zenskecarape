@@ -141,7 +141,6 @@ PROIZVODI:
 ${itemsText}
 
 UKUPNO: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR} EUR` : ""}
-Dostava: Besplatna
           `,
           HTMLPart: `
 <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
@@ -259,7 +258,6 @@ PORUČENI PROIZVODI:
 ${itemsText}
 
 UKUPNO: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR} EUR` : ""}
-Dostava: Besplatna
 
 Ukoliko imate pitanja, možete nas kontaktirati putem sajta.
 
@@ -301,10 +299,6 @@ Ovo je automatski generisan email. Molimo Vas da ne odgovarate na ovu poruku.
 
       <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #e5e7eb;">
         <table style="width: 100%; max-width: 280px; margin-left: auto;">
-          <tr>
-            <td style="padding: 6px 0; font-size: 14px; color: #6b7280;">Dostava:</td>
-            <td style="padding: 6px 0; text-align: right; font-size: 14px; color: #16a34a;"><strong>Besplatna</strong></td>
-          </tr>
           <tr style="border-top: 2px solid #dc2626;">
             <td style="padding: 10px 0; font-size: 16px;"><strong>Ukupno:</strong></td>
             <td style="padding: 10px 0; text-align: right; font-size: 16px; font-weight: bold; color: #dc2626;">

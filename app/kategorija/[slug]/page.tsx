@@ -36,7 +36,7 @@ export async function generateMetadata({
   const title = `${category.name} - Ženske Čarape | Kupovina Online`;
   const description =
     category.description ||
-    `Pregledajte naš širok asortiman kategorije ${category.name}. Kvalitetne ženske čarape sa brzom dostavom u Srbiji. Besplatna dostava za porudžbine preko 3000 RSD.`;
+    `Pregledajte naš širok asortiman kategorije ${category.name}. Kvalitetne ženske čarape sa brzom dostavom u Srbiji.`;
 
   const imageUrl = category.image
     ? urlFor(category.image).width(1200).height(630).url()
@@ -195,18 +195,18 @@ export default async function CategoryPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
-        <div className="container mx-auto px-4 py-8">
-          <div className="mb-4 text-sm text-gray-600">
-            <Link href="/" className="hover:text-gray-900">
-              Početna
-            </Link>
-            {" / "}
-            <Link href="/proizvodi" className="hover:text-gray-900">
-              Ženske čarape
-            </Link>
-            {" / "}
-            <span className="text-gray-900">{category.name}</span>
-          </div>
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-4 text-sm text-gray-600">
+          <Link href="/" className="hover:text-gray-900">
+            Početna
+          </Link>
+          {" / "}
+          <Link href="/proizvodi" className="hover:text-gray-900">
+            Ženske čarape
+          </Link>
+          {" / "}
+          <span className="text-gray-900">{category.name}</span>
+        </div>
 
         <div className="mb-8">
           <h1 className="mb-4 text-3xl font-bold text-gray-900">

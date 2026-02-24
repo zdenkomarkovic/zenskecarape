@@ -116,7 +116,7 @@ Cena: ${item.priceRSD ? `${item.priceRSD * item.quantity} RSD` : ""} ${item.pric
         {
           From: {
             Email: process.env.SITE_MAIL_SENDER!,
-            Name: "Ženske čarape - Porudžbine",
+            Name: "Ženske čarape BG - Porudžbine",
           },
           To: [
             {
@@ -234,7 +234,7 @@ UKUPNO: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR}
         {
           From: {
             Email: process.env.SITE_MAIL_SENDER!,
-            Name: "Ženske čarape - Ne odgovarati",
+            Name: "Ženske čarape BG - Ne odgovarati",
           },
           ReplyTo: {
             Email: process.env.SITE_MAIL_SENDER!,
@@ -246,7 +246,7 @@ UKUPNO: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR}
               Name: `${customer.firstName} ${customer.lastName}`,
             },
           ],
-          Subject: "Potvrda porudžbine - Ženske čarape",
+          Subject: "Potvrda porudžbine - Ženske čarape BG",
           TextPart: `
 Poštovana/i ${customer.firstName} ${customer.lastName},
 
@@ -262,7 +262,7 @@ UKUPNO: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR}
 Ukoliko imate pitanja, možete nas kontaktirati putem sajta.
 
 S poštovanjem,
-Tim Ženske čarape
+Tim Ženske čarape BG
 
 ---
 Ovo je automatski generisan email. Molimo Vas da ne odgovarate na ovu poruku.
@@ -316,7 +316,7 @@ Ovo je automatski generisan email. Molimo Vas da ne odgovarate na ovu poruku.
 
     <p style="font-size: 14px; color: #374151; margin-bottom: 0;">
       S poštovanjem,<br/>
-      <strong>Tim Ženske čarape</strong>
+      <strong>Tim Ženske čarape BG</strong>
     </p>
   </div>
 

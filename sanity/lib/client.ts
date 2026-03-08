@@ -11,7 +11,7 @@ export const client = createClient({
 export async function sanityFetch<T = any>({
   query,
   params = {},
-  revalidate = 3600, // Revalidacija na svakih sat vremena
+  revalidate = false, // Nema time-based revalidacije — koristi se on-demand revalidacija via webhook
 }: {
   query: string
   params?: QueryParams

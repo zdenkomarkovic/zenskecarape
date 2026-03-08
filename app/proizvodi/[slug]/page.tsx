@@ -8,6 +8,12 @@ import CareInstructionsDisplay from "@/components/CareInstructionsDisplay";
 import type { Metadata } from "next";
 import SizeGuide from "@/components/SizeGuide";
 
+export async function generateStaticParams() {
+  const query = `*[_type == "product"] { "slug": slug.current }`;
+  const products = await sanityFetch({ query, revalidate: false });
+  return (products ?? []).map((p: { slug: string }) => ({ slug: p.slug }));
+}
+
 const SITE_URL = "https://zenskecarapebg.rs";
 
 async function getProduct(slug: string) {

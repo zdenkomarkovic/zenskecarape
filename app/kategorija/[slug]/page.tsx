@@ -5,6 +5,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
+export async function generateStaticParams() {
+  const query = `*[_type == "category"] { "slug": slug.current }`;
+  const categories = await sanityFetch({ query, revalidate: false });
+  return (categories ?? []).map((c: { slug: string }) => ({ slug: c.slug }));
+}
+
 const SITE_URL = "https://zenskecarapebg.rs";
 
 async function getCategory(slug: string) {

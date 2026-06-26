@@ -41,7 +41,7 @@ type OrderFormData = z.infer<typeof orderFormSchema>;
 
 export default function NarudzbaPage() {
   const router = useRouter();
-  const { items, getTotalPriceRSD, getTotalPriceEUR, clearCart } = useCart();
+  const { items, shippingCostRSD, getTotalPriceRSD, getTotalPriceEUR, getGrandTotalRSD, clearCart } = useCart();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<OrderFormData>({
@@ -90,6 +90,8 @@ export default function NarudzbaPage() {
         items: items,
         totalRSD: getTotalPriceRSD(),
         totalEUR: getTotalPriceEUR(),
+        shippingRSD: shippingCostRSD,
+        grandTotalRSD: getGrandTotalRSD(),
       };
 
       const response = await fetch("/api/order", {

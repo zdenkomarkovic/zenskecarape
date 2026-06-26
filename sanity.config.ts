@@ -23,10 +23,18 @@ export default defineConfig({
                   .schemaType('homepage')
                   .documentId('homepage')
               ),
+            // Singleton za poštarinu
+            S.listItem()
+              .title('Poštarina')
+              .child(
+                S.document()
+                  .schemaType('shipping')
+                  .documentId('shipping')
+              ),
             S.divider(),
             // Ostali tipovi dokumenata
             ...S.documentTypeListItems().filter(
-              (listItem) => !['homepage'].includes(listItem.getId() || '')
+              (listItem) => !['homepage', 'shipping'].includes(listItem.getId() || '')
             ),
           ]),
     }),

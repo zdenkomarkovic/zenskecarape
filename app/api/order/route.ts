@@ -41,12 +41,14 @@ interface OrderData {
   items: OrderItem[];
   totalRSD: number;
   totalEUR: number;
+  shippingRSD: number;
+  grandTotalRSD: number;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body: OrderData = await request.json();
-    const { customer, items, totalRSD, totalEUR } = body;
+    const { customer, items, totalRSD, totalEUR, shippingRSD, grandTotalRSD } = body;
 
     // Validacija
     if (!customer || !items || items.length === 0) {
@@ -140,7 +142,9 @@ ${customer.note ? `Napomena: ${customer.note}` : ""}
 PROIZVODI:
 ${itemsText}
 
-UKUPNO: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR} EUR` : ""}
+Proizvodi: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR} EUR` : ""}
+${shippingRSD > 0 ? `Poštarina: ${shippingRSD} RSD` : ""}
+UKUPNO: ${grandTotalRSD > 0 ? `${grandTotalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR} EUR` : ""}
           `,
           HTMLPart: `
 <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
@@ -212,11 +216,16 @@ UKUPNO: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR}
               ${totalEUR > 0 ? `<br/><span style="color: #6b7280; font-size: 14px;">${totalEUR} EUR</span>` : ""}
             </td>
           </tr>
+          ${shippingRSD > 0 ? `
+          <tr>
+            <td style="padding: 8px 0;"><strong>Poštarina:</strong></td>
+            <td style="padding: 8px 0; text-align: right;">${shippingRSD} RSD</td>
+          </tr>` : ""}
 
           <tr style="border-top: 2px solid #dc2626;">
             <td style="padding: 12px 0; font-size: 18px;"><strong>UKUPNO:</strong></td>
             <td style="padding: 12px 0; text-align: right; font-size: 18px; font-weight: bold; color: #dc2626;">
-              ${totalRSD > 0 ? `${totalRSD} RSD` : ""}
+              ${grandTotalRSD > 0 ? `${grandTotalRSD} RSD` : ""}
               ${totalEUR > 0 ? `<br/>${totalEUR} EUR` : ""}
             </td>
           </tr>
@@ -257,7 +266,9 @@ Vaša porudžbina je uspešno primljena i trenutno se obrađuje. Uskoro ćemo Va
 PORUČENI PROIZVODI:
 ${itemsText}
 
-UKUPNO: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR} EUR` : ""}
+Proizvodi: ${totalRSD > 0 ? `${totalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR} EUR` : ""}
+${shippingRSD > 0 ? `Poštarina: ${shippingRSD} RSD` : ""}
+UKUPNO: ${grandTotalRSD > 0 ? `${grandTotalRSD} RSD` : ""} ${totalEUR > 0 ? `/ ${totalEUR} EUR` : ""}
 
 Ukoliko imate pitanja, možete nas kontaktirati putem sajta.
 
@@ -299,10 +310,22 @@ Ovo je automatski generisan email. Molimo Vas da ne odgovarate na ovu poruku.
 
       <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #e5e7eb;">
         <table style="width: 100%; max-width: 280px; margin-left: auto;">
+          <tr>
+            <td style="padding: 6px 0; font-size: 14px;">Proizvodi:</td>
+            <td style="padding: 6px 0; text-align: right; font-size: 14px;">
+              ${totalRSD > 0 ? `${totalRSD} RSD` : ""}
+              ${totalEUR > 0 ? `<br/><span style="color: #6b7280; font-size: 12px;">${totalEUR} EUR</span>` : ""}
+            </td>
+          </tr>
+          ${shippingRSD > 0 ? `
+          <tr>
+            <td style="padding: 6px 0; font-size: 14px;">Poštarina:</td>
+            <td style="padding: 6px 0; text-align: right; font-size: 14px;">${shippingRSD} RSD</td>
+          </tr>` : ""}
           <tr style="border-top: 2px solid #dc2626;">
             <td style="padding: 10px 0; font-size: 16px;"><strong>Ukupno:</strong></td>
             <td style="padding: 10px 0; text-align: right; font-size: 16px; font-weight: bold; color: #dc2626;">
-              ${totalRSD > 0 ? `${totalRSD} RSD` : ""}
+              ${grandTotalRSD > 0 ? `${grandTotalRSD} RSD` : ""}
               ${totalEUR > 0 ? `<br/><span style="font-size: 13px;">${totalEUR} EUR</span>` : ""}
             </td>
           </tr>

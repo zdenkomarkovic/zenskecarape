@@ -24,6 +24,7 @@ export interface CartItem {
 
 interface CartContextType {
   items: CartItem[]
+  shippingCostRSD: number
   addToCart: (item: CartItem) => void
   removeFromCart: (productId: string, colorId?: string, sizeId?: string) => void
   updateQuantity: (productId: string, quantity: number, colorId?: string, sizeId?: string) => void
@@ -31,12 +32,14 @@ interface CartContextType {
   getTotalItems: () => number
   getTotalPriceRSD: () => number
   getTotalPriceEUR: () => number
+  getGrandTotalRSD: () => number
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [shippingCostRSD, setShippingCostRSD] = useState<number>(0)
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -44,6 +47,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (savedCart) {
       setItems(JSON.parse(savedCart))
     }
+  }, [])
+
+  // Fetch shipping cost from Sanity via API
+  useEffect(() => {
+    fetch('/api/shipping')
+      .then((res) => res.json())
+      .then((data) => {
+        if (typeof data?.priceRSD === 'number') {
+          setShippingCostRSD(data.priceRSD)
+        }
+      })
+      .catch(() => {})
   }, [])
 
   // Save cart to localStorage whenever it changes
@@ -134,10 +149,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }, 0)
   }
 
+  const getGrandTotalRSD = () => {
+    return getTotalPriceRSD() + shippingCostRSD
+  }
+
   return (
     <CartContext.Provider
       value={{
         items,
+        shippingCostRSD,
         addToCart,
         removeFromCart,
         updateQuantity,
@@ -145,6 +165,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         getTotalItems,
         getTotalPriceRSD,
         getTotalPriceEUR,
+        getGrandTotalRSD,
       }}
     >
       {children}

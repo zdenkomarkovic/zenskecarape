@@ -34,6 +34,10 @@ export async function POST(request: NextRequest) {
         revalidatePath("/", "page");
         break;
 
+      case "shipping":
+        revalidatePath("/proizvodi/[slug]", "page");
+        break;
+
       default:
         // color, size, denier, subcategory
         revalidatePath("/proizvodi", "page");

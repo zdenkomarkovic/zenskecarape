@@ -47,6 +47,7 @@ async function getProduct(slug: string) {
   return sanityFetch({ query, params: { slug } });
 }
 
+
 // Dynamic metadata generation
 export async function generateMetadata({
   params,
@@ -266,16 +267,18 @@ export default async function ProductPage({
 
             {(product.priceRSD || product.priceEUR) && (
               <div className="mb-6">
-                {product.priceRSD && (
-                  <span className="text-3xl font-bold text-gray-900">
-                    {product.priceRSD} RSD
-                  </span>
-                )}
-                {product.priceEUR && (
-                  <span className="ml-4 text-2xl text-gray-600">
-                    {product.priceEUR} EUR
-                  </span>
-                )}
+                <div>
+                  {product.priceRSD && (
+                    <span className="text-3xl font-bold text-gray-900">
+                      {product.priceRSD} RSD
+                    </span>
+                  )}
+                  {product.priceEUR && (
+                    <span className="ml-4 text-2xl text-gray-600">
+                      {product.priceEUR} EUR
+                    </span>
+                  )}
+                </div>
               </div>
             )}
 

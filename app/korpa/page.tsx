@@ -10,11 +10,13 @@ import { Button } from "@/components/ui/button";
 export default function KorpaPage() {
   const {
     items,
+    shippingCostRSD,
     updateQuantity,
     removeFromCart,
     clearCart,
     getTotalPriceRSD,
     getTotalPriceEUR,
+    getGrandTotalRSD,
   } = useCart();
 
   if (items.length === 0) {
@@ -212,14 +214,21 @@ export default function KorpaPage() {
                   </div>
                 </div>
 
-                <div className="flex justify-between text-gray-600"></div>
+                {shippingCostRSD > 0 && (
+                  <div className="flex justify-between text-gray-600">
+                    <span>Poštarina</span>
+                    <div className="text-right font-semibold text-gray-900">
+                      {shippingCostRSD} RSD
+                    </div>
+                  </div>
+                )}
 
                 <div className="border-t border-gray-200 pt-3">
                   <div className="flex justify-between text-lg font-bold text-gray-900">
                     <span>Ukupno</span>
                     <div className="text-right">
-                      {getTotalPriceRSD() > 0 && (
-                        <div>{getTotalPriceRSD()} RSD</div>
+                      {getGrandTotalRSD() > 0 && (
+                        <div>{getGrandTotalRSD()} RSD</div>
                       )}
                       {getTotalPriceEUR() > 0 && (
                         <div className="text-base text-gray-600">

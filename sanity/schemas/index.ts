@@ -5,5 +5,6 @@ import color from './color'
 import size from './size'
 import denier from './denier'
 import homepage from './homepage'
+import shipping from './shipping'
 
-export const schemaTypes = [homepage, category, subcategory, product, color, size, denier]
+export const schemaTypes = [homepage, shipping, category, subcategory, product, color, size, denier]

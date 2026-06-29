@@ -2,8 +2,21 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Mail, Instagram, Facebook } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function Footer() {
+  const [shippingCostRSD, setShippingCostRSD] = useState<number>(0);
+
+  useEffect(() => {
+    fetch("/api/shipping")
+      .then((res) => res.json())
+      .then((data) => {
+        if (typeof data?.priceRSD === "number") {
+          setShippingCostRSD(data.priceRSD);
+        }
+      })
+      .catch(() => {});
+  }, []);
   return (
     <motion.footer
       className="py-12 bg-gray-100"
@@ -97,6 +110,15 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        {shippingCostRSD > 0 && (
+          <div className="text-center py-4 border-t border-gray-300">
+            <p className="text-gray-700">
+              Cena postarine:{" "}
+              <span className="font-bold text-primary">{shippingCostRSD} RSD</span>
+            </p>
+          </div>
+        )}
 
         <div className="flex flex-col md:flex-row justify-center items-center text-center gap-2 md:gap-10 border-t border-gray-300 pt-6">
           <p>
